@@ -558,6 +558,24 @@
     }
     .toast.is-show { opacity: 1; transform: translate(-50%, 0); }
 
+    /* Inquiry form */
+    .inquiry-card { background: var(--surface-container-low); border-radius: var(--rounded-lg); padding: var(--space-lg); }
+    .inquiry-form { display: grid; gap: var(--space-md); }
+    .f-field { display: grid; gap: 6px; }
+    .f-field label { font-weight: 700; font-size: 0.9rem; }
+    .f-field .req { color: var(--primary); font-size: 0.78rem; font-weight: 700; margin-left: 6px; }
+    .f-field input, .f-field select, .f-field textarea {
+      width: 100%; padding: 12px 14px; border: 1px solid var(--outline-variant, #d8cfc2);
+      border-radius: var(--rounded); background: var(--background); color: var(--on-surface);
+      font-size: 1rem; line-height: 1.5;
+    }
+    .f-field input:focus, .f-field select:focus, .f-field textarea:focus { outline: 2px solid var(--primary); outline-offset: 1px; }
+    .f-note { font-size: 0.85rem; color: var(--on-surface-variant); }
+    .thanks-banner {
+      background: var(--primary-container, #dcefe2); color: var(--on-primary-container, #183d26);
+      border-radius: var(--rounded-lg); padding: var(--space-md) var(--space-lg); font-weight: 700;
+    }
+
     @media (min-width: 821px) {
       .hero { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: var(--space-xl); align-items: stretch; }
       .hero-visual { align-items: stretch; max-height: none; padding-top: 24px; }
@@ -1538,6 +1556,67 @@
       </div>
     </section>
 
+    <!-- Section 7: ご相談フォーム -->
+    <section id="sec-7" class="guide-section reveal">
+      <div>
+        <span class="kicker">ご相談フォーム</span>
+        <h2>このまま相談を送る</h2>
+        <p>
+          チェックリストの内容に沿って、そのまま Studio Miraie へ相談を送れます。返信はメールで、通常1〜2日以内にお送りします。電話での営業は行いません。
+        </p>
+      </div>
+
+      <div id="thanks-banner" class="thanks-banner" hidden>
+        送信ありがとうございました。内容を確認のうえ、ご連絡先メールアドレスへ返信いたします。
+      </div>
+
+      <div class="inquiry-card">
+        <form class="inquiry-form" action="https://formsubmit.co/miraie@muse.ai" method="POST">
+          <input type="hidden" name="_subject" value="【サイト相談】解説ページからお問い合わせ">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://pousan.github.io/studio-miraie-guide/guide/?thanks=1">
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+          <div class="f-field">
+            <label for="f-name">お名前<span class="req">必須</span></label>
+            <input id="f-name" type="text" name="お名前" required autocomplete="name">
+          </div>
+          <div class="f-field">
+            <label for="f-shop">お店の名前</label>
+            <input id="f-shop" type="text" name="お店の名前" autocomplete="organization">
+          </div>
+          <div class="f-field">
+            <label for="f-type">業種</label>
+            <input id="f-type" type="text" name="業種" placeholder="例：カフェ、美容室、整体、教室 など">
+          </div>
+          <div class="f-field">
+            <label for="f-email">ご連絡先メールアドレス<span class="req">必須</span></label>
+            <input id="f-email" type="email" name="email" required autocomplete="email">
+          </div>
+          <div class="f-field">
+            <label for="f-ig">Instagram アカウント（任意）</label>
+            <input id="f-ig" type="text" name="Instagram" placeholder="例：@yourshop">
+          </div>
+          <div class="f-field">
+            <label for="f-plan">検討中のプラン</label>
+            <select id="f-plan" name="検討中のプラン">
+              <option>簡易LP／1ページサイト（モニター価格）</option>
+              <option>カフェ向けホームページパッケージ</option>
+              <option>まだ決めていない・相談したい</option>
+            </select>
+          </div>
+          <div class="f-field">
+            <label for="f-msg">ご相談内容</label>
+            <textarea id="f-msg" name="ご相談内容" rows="5" placeholder="お店の状況や、気になっていることをご自由にお書きください。"></textarea>
+          </div>
+          <p class="f-note">送信いただいた内容は、ご相談への返信にのみ使います。</p>
+          <button type="submit" class="btn btn-primary btn-block">
+            <span>この内容で相談を送る</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
     <footer class="page-footer">
       <strong>ご案内資料について</strong>
       <span>Studio Miraie のサービス案内ページです。記載されている金額はすべて税込です。</span>
@@ -1545,6 +1624,12 @@
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    if (new URLSearchParams(location.search).get('thanks') === '1') {
+      const b = document.getElementById('thanks-banner');
+      if (b) { b.hidden = false; b.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    }
+  </script>
   <script>
     const SIM_PRICES = {
       lp: { monitor: 39000, regular: 54800, days: `7〜10日` },
