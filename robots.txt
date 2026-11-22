@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pousan.github.io/studio-miraie-guide/sitemap.xml
