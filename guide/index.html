@@ -1571,23 +1571,20 @@
       </div>
 
       <div class="inquiry-card">
-        <form class="inquiry-form" action="https://formsubmit.co/miraie@muse.ai" method="POST">
-          <input type="hidden" name="_subject" value="【サイト相談】解説ページからお問い合わせ">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_next" value="https://pousan.github.io/studio-miraie-guide/guide/?thanks=1">
-          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+        <form class="inquiry-form" id="inquiry-form">
+          <input type="text" id="f-honey" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
 
           <div class="f-field">
             <label for="f-name">お名前<span class="req">必須</span></label>
-            <input id="f-name" type="text" name="お名前" required autocomplete="name">
+            <input id="f-name" type="text" name="name" required autocomplete="name">
           </div>
           <div class="f-field">
             <label for="f-shop">お店の名前</label>
-            <input id="f-shop" type="text" name="お店の名前" autocomplete="organization">
+            <input id="f-shop" type="text" name="shop_name" autocomplete="organization">
           </div>
           <div class="f-field">
             <label for="f-type">業種</label>
-            <input id="f-type" type="text" name="業種" placeholder="例：カフェ、美容室、整体、教室 など">
+            <input id="f-type" type="text" name="industry" placeholder="例：カフェ、美容室、整体、教室 など">
           </div>
           <div class="f-field">
             <label for="f-email">ご連絡先メールアドレス<span class="req">必須</span></label>
@@ -1595,11 +1592,11 @@
           </div>
           <div class="f-field">
             <label for="f-ig">Instagram アカウント（任意）</label>
-            <input id="f-ig" type="text" name="Instagram" placeholder="例：@yourshop">
+            <input id="f-ig" type="text" name="instagram" placeholder="例：@yourshop">
           </div>
           <div class="f-field">
             <label for="f-plan">検討中のプラン</label>
-            <select id="f-plan" name="検討中のプラン">
+            <select id="f-plan" name="plan">
               <option>簡易LP／1ページサイト（モニター価格）</option>
               <option>カフェ向けホームページパッケージ</option>
               <option>まだ決めていない・相談したい</option>
@@ -1607,10 +1604,11 @@
           </div>
           <div class="f-field">
             <label for="f-msg">ご相談内容</label>
-            <textarea id="f-msg" name="ご相談内容" rows="5" placeholder="お店の状況や、気になっていることをご自由にお書きください。"></textarea>
+            <textarea id="f-msg" name="message" rows="5" placeholder="お店の状況や、気になっていることをご自由にお書きください。"></textarea>
           </div>
           <p class="f-note">送信いただいた内容は、ご相談への返信にのみ使います。</p>
-          <button type="submit" class="btn btn-primary btn-block">
+          <p class="f-note" id="inquiry-error" hidden style="color:#b3261e">送信できませんでした。お手数ですが、Instagram の DM からご連絡ください。</p>
+          <button type="submit" id="inquiry-submit" class="btn btn-primary btn-block">
             <span>この内容で相談を送る</span>
           </button>
         </form>
@@ -1625,9 +1623,51 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script>
-    if (new URLSearchParams(location.search).get('thanks') === '1') {
+    const SUPABASE_URL = 'https://qblvhfnrpwzzqscglxvp.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFibHZoZm5ycHd6enFzY2dseHZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQxMTE4NTYsImV4cCI6MjA5OTY4Nzg1Nn0.t-60rxmULYKxmHlQcTplVHyKf_ZcwILQGNBbx9-PedM';
+    function showThanks() {
       const b = document.getElementById('thanks-banner');
       if (b) { b.hidden = false; b.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    }
+    if (new URLSearchParams(location.search).get('thanks') === '1') { showThanks(); }
+    const inquiryForm = document.getElementById('inquiry-form');
+    if (inquiryForm) {
+      inquiryForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (document.getElementById('f-honey').value) { showThanks(); return; }
+        const btn = document.getElementById('inquiry-submit');
+        const err = document.getElementById('inquiry-error');
+        btn.disabled = true; err.hidden = true;
+        const fd = new FormData(inquiryForm);
+        const payload = {
+          name: (fd.get('name') || '').toString().trim(),
+          shop_name: (fd.get('shop_name') || '').toString().trim() || null,
+          industry: (fd.get('industry') || '').toString().trim() || null,
+          email: (fd.get('email') || '').toString().trim(),
+          instagram: (fd.get('instagram') || '').toString().trim() || null,
+          plan: (fd.get('plan') || '').toString() || null,
+          message: (fd.get('message') || '').toString().trim() || null
+        };
+        try {
+          const res = await fetch(SUPABASE_URL + '/rest/v1/guide_inquiries', {
+            method: 'POST',
+            headers: {
+              'apikey': SUPABASE_ANON_KEY,
+              'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(payload)
+          });
+          if (!res.ok) throw new Error('send failed');
+          inquiryForm.reset();
+          showThanks();
+        } catch (ex) {
+          err.hidden = false;
+        } finally {
+          btn.disabled = false;
+        }
+      });
     }
   </script>
   <script>
