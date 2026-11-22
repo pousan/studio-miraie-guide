@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Miraie｜小規模店舗専門のWeb制作・制作見本とモニター募集</title>
+<meta name="description" content="小規模店舗専門のWeb制作 Studio Miraie。お店の1ページサイト制作の見本と、モニター店舗募集（先着3店舗）のご案内です。">
+<style>
+  :root{
+    --bg:#14101f; --bg2:#1e1832; --card:#241d3d; --line:#3a3160;
+    --text:#f2eefc; --muted:#b9b2d4; --accent:#ff9ce6; --accent2:#8a5cff; --gold:#ffd678;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:linear-gradient(180deg,var(--bg),var(--bg2));color:var(--text);
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif;
+    line-height:1.8;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:680px;margin:0 auto;padding:40px 20px 64px}
+  header{text-align:center;padding:24px 0 8px}
+  .logo{font-size:15px;letter-spacing:.35em;color:var(--accent);font-weight:700}
+  h1{font-size:30px;line-height:1.5;margin:14px 0 10px;font-weight:800}
+  .lead{color:var(--muted);font-size:15px}
+  section{margin-top:44px}
+  h2{font-size:20px;margin-bottom:14px;padding-left:12px;border-left:4px solid var(--accent2)}
+  .monitor{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px 22px}
+  .price{font-size:17px;margin:6px 0}
+  .price strong{font-size:26px;color:var(--gold)}
+  .price .regular{color:var(--muted);font-size:14px}
+  .monitor ul{margin:12px 0 0 20px;color:var(--muted);font-size:14.5px}
+  .samples{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.samples{grid-template-columns:1fr}}
+  .sample{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:18px;text-decoration:none;color:var(--text)}
+  .sample .kind{font-size:12.5px;color:var(--accent);letter-spacing:.08em;font-weight:700}
+  .sample .name{font-size:18px;font-weight:700;margin:4px 0 2px}
+  .sample .desc{font-size:13.5px;color:var(--muted)}
+  .sample .fake{font-size:12px;color:var(--muted);margin-top:8px}
+  .steps{counter-reset:step}
+  .steps li{list-style:none;background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:14px 18px;margin-bottom:10px;font-size:15px}
+  .steps b{color:var(--gold)}
+  .cta{display:block;text-align:center;background:linear-gradient(90deg,var(--accent2),#b06ee0);
+    color:#fff;text-decoration:none;font-weight:700;font-size:17px;border-radius:999px;
+    padding:15px 20px;margin-top:16px}
+  .note{font-size:13px;color:var(--muted);margin-top:12px;text-align:center}
+  footer{margin-top:56px;text-align:center;color:var(--muted);font-size:12.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">STUDIO MIRAIE</div>
+    <h1>小規模店舗専門の<br>Web制作</h1>
+    <p class="lead">「作って終わり」にしない。予約につながるお店のページを作ります。</p>
+  </header>
+
+  <section>
+    <h2>モニター店舗を募集中です</h2>
+    <div class="monitor">
+      <p class="price">お店の1ページサイト制作<br>
+        <span class="regular">通常 54,800円（税込）→</span> <strong>モニター 39,000円（税込）</strong></p>
+      <ul>
+        <li>先着3店舗まで</li>
+        <li>条件は「制作事例としての紹介」と「ひと言の感想」だけです（口コミ投稿などが条件になることはありません）</li>
+        <li>公開後の月額費用は基本0円（保守は任意で月3,000円〜）</li>
+        <li>納期は素材がそろってから7〜10日</li>
+      </ul>
+      <a class="cta" href="https://coconala.com/services/4523482">Coconalaで詳しく見る・相談する</a>
+      <p class="note">Instagram の DM からもご相談いただけます。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>制作見本</h2>
+    <div class="samples">
+      <a class="sample" href="https://cafe.studiomiraie.com/">
+        <div class="kind">カフェ｜ホームページ一式</div>
+        <div class="name">ひより珈琲</div>
+        <div class="desc">自家焙煎のご近所カフェ。メニューから地図・予約までの流れを設計したデモサイトです。</div>
+        <div class="fake">※架空店舗の制作サンプルです</div>
+      </a>
+      <a class="sample" href="https://pousan.github.io/sample-lp-salon/">
+        <div class="kind">美容室｜1ページサイト</div>
+        <div class="name">Hair Atelier 穏 -on-</div>
+        <div class="desc">完全予約制・大人のための美容室の1ページサイト見本です。</div>
+        <div class="fake">※架空店舗の制作サンプルです</div>
+      </a>
+      <a class="sample" href="https://pousan.github.io/sample-lp-seitai/">
+        <div class="kind">整体｜1ページサイト</div>
+        <div class="name">経堂 整骨院 和 -nagomi-</div>
+        <div class="desc">完全予約制の整骨院の1ページサイト見本です。</div>
+        <div class="fake">※架空店舗の制作サンプルです</div>
+      </a>
+      <a class="sample" href="https://pousan.github.io/sample-lp-kyoshitsu/">
+        <div class="kind">ピアノ教室｜1ページサイト</div>
+        <div class="name">ひだまりピアノ教室</div>
+        <div class="desc">無料体験レッスンへの流れを設計した、子どものためのピアノ教室の見本です。</div>
+        <div class="fake">※架空店舗の制作サンプルです</div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>進め方</h2>
+    <ol class="steps">
+      <li><b>1. ヒアリング</b>（15分ほど）— お店の案内をどう見せたいかをお聞きします</li>
+      <li><b>2. 制作</b>（7〜10日）— 写真やメニューをお借りして制作します</li>
+      <li><b>3. 確認・公開</b> — 内容をご確認いただいてから公開します</li>
+    </ol>
+    <p class="note">制作はAIで下地を作り、構成と最終確認は人が行います。対応はオンラインのみです。</p>
+  </section>
+
+  <footer>Studio Miraie（東京）</footer>
+</div>
+</body>
+</html>
